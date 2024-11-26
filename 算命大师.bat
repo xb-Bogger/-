@@ -1,25 +1,28 @@
+REM author bogger
+
+
 @echo off
 setlocal enabledelayedexpansion
 
 
-title ËãÃü´óÊ¦
+title ç®—å‘½å¤§å¸ˆ
 
 
 :main
 cls
 echo =====================================
-echo              ËãÃü´óÊ¦
-echo  ÊäÈë¸ñÊ½(YYYY-MM-DD)£¬ÊäÈëexitÔòÍË³ö 
+echo              ç®—å‘½å¤§å¸ˆ
+echo  è¾“å…¥æ ¼å¼(YYYY-MM-DD)ï¼Œè¾“å…¥exitåˆ™é€€å‡º 
 echo =====================================
-set /p birthDate=ÇëÊäÈëÉú³½£º
+set /p birthDate=è¯·è¾“å…¥ç”Ÿè¾°ï¼š
 
 if /i "!birthDate!"=="exit" (
-    echo Ê©Ö÷£¬ÓÐÔµÔÙ»á
+    echo æ–½ä¸»ï¼Œæœ‰ç¼˜å†ä¼š
     pause
     exit /b
 )
 
-REM ÑéÖ¤ÊäÈë¸ñÊ½ºÍÓÐÐ§ÐÔ
+REM éªŒè¯è¾“å…¥æ ¼å¼å’Œæœ‰æ•ˆæ€§
 for /f "tokens=1-3 delims=-" %%a in ("%birthDate%") do (
     set year=%%a
     set month=%%b
@@ -27,22 +30,22 @@ for /f "tokens=1-3 delims=-" %%a in ("%birthDate%") do (
 )
 
 
-REM ¼ì²éÄê·Ý¡¢ÔÂ·ÝºÍÈÕÆÚµÄÓÐÐ§ÐÔ
+REM æ£€æŸ¥å¹´ä»½ã€æœˆä»½å’Œæ—¥æœŸçš„æœ‰æ•ˆæ€§
 if "!year!"=="" goto error
 if "!month!"=="" goto error
 if "!day!"=="" goto error
 
 
-REM ÑéÖ¤Äê·Ý·¶Î§
+REM éªŒè¯å¹´ä»½èŒƒå›´
 if !year! lss 1900 goto error
 if !year! gtr 2100 goto error
 
 
-REM ÑéÖ¤ÔÂ·Ý
+REM éªŒè¯æœˆä»½
 if !month! lss 1 goto error
 if !month! gtr 12 goto error
 
-REM ¼ì²éÃ¿ÔÂÌìÊý
+REM æ£€æŸ¥æ¯æœˆå¤©æ•°
 set "monthDays[01]=31"
 set "monthDays[02]=28"
 set "monthDays[03]=31"
@@ -56,8 +59,8 @@ set "monthDays[10]=31"
 set "monthDays[11]=30"
 set "monthDays[12]=31"
 
-REM ÈòÄê2ÔÂ29Ìì
-REM ÅÐ¶ÏÈòÄê
+REM é—°å¹´2æœˆ29å¤©
+REM åˆ¤æ–­é—°å¹´
 if %month%==02 (
     set /a leap=0
     set /a mod4=%year% %% 4
@@ -71,93 +74,93 @@ if %month%==02 (
 if !leap! equ 1 set "monthDays[02]=29"
 )
 
-REM ÑéÖ¤ÈÕÆÚ
+REM éªŒè¯æ—¥æœŸ
 if !day! lss 1 goto error
 if !day! gtr !monthDays[%month%]! goto error
 
 
-REM ¼ÆËãÊôÏà
+REM è®¡ç®—å±žç›¸
 set /a zodiacIndex=(!year! - 4) %% 12
-set "zodiac[0]=Êó" 
-set "zodiac[1]=Å£"
-set "zodiac[2]=»¢"
-set "zodiac[3]=ÍÃ"
-set "zodiac[4]=Áú"
-set "zodiac[5]=Éß"
-set "zodiac[6]=Âí"
-set "zodiac[7]=Ñò"
-set "zodiac[8]=ºï"
-set "zodiac[9]=¼¦"
-set "zodiac[10]=¹·"
-set "zodiac[11]=Öí"
+set "zodiac[0]=é¼ " 
+set "zodiac[1]=ç‰›"
+set "zodiac[2]=è™Ž"
+set "zodiac[3]=å…”"
+set "zodiac[4]=é¾™"
+set "zodiac[5]=è›‡"
+set "zodiac[6]=é©¬"
+set "zodiac[7]=ç¾Š"
+set "zodiac[8]=çŒ´"
+set "zodiac[9]=é¸¡"
+set "zodiac[10]=ç‹—"
+set "zodiac[11]=çŒª"
 
 
 set "zodiacSign=!zodiac[%zodiacIndex%]!"
 
 
-REM ¼ÆËãÐÇ×ù
+REM è®¡ç®—æ˜Ÿåº§
 set "constellation="
 if "!month!"=="01" (
-    if "!day!" leq "19" set "constellation=Ä¦ôÉ×ù" & goto output
-    if "!day!" geq "20" set "constellation=Ë®Æ¿×ù" & goto output
+    if "!day!" leq "19" set "constellation=æ‘©ç¾¯åº§" & goto output
+    if "!day!" geq "20" set "constellation=æ°´ç“¶åº§" & goto output
 )
 if "!month!"=="02" (
-    if "!day!" leq "18" set "constellation=Ë®Æ¿×ù" & goto output
-    if "!day!" geq "19" set "constellation=Ë«Óã×ù" & goto output
+    if "!day!" leq "18" set "constellation=æ°´ç“¶åº§" & goto output
+    if "!day!" geq "19" set "constellation=åŒé±¼åº§" & goto output
 )
 if "!month!"=="03" (
-    if "!day!" leq "20" set "constellation=Ë«Óã×ù" & goto output
-    if "!day!" geq "21" set "constellation=°×Ñò×ù" & goto output
+    if "!day!" leq "20" set "constellation=åŒé±¼åº§" & goto output
+    if "!day!" geq "21" set "constellation=ç™½ç¾Šåº§" & goto output
 )
 if "!month!"=="04" (
-    if "!day!" leq "19" set "constellation=°×Ñò×ù" & goto output
-    if "!day!" geq "20" set "constellation=½ðÅ£×ù" & goto output
+    if "!day!" leq "19" set "constellation=ç™½ç¾Šåº§" & goto output
+    if "!day!" geq "20" set "constellation=é‡‘ç‰›åº§" & goto output
 )
 if "!month!"=="05" (
-    if "!day!" leq "20" set "constellation=½ðÅ£×ù" & goto output
-    if "!day!" geq "21" set "constellation=Ë«×Ó×ù" & goto output
+    if "!day!" leq "20" set "constellation=é‡‘ç‰›åº§" & goto output
+    if "!day!" geq "21" set "constellation=åŒå­åº§" & goto output
 )
 if "!month!"=="06" (
-    if "!day!" leq "21" set "constellation=Ë«×Ó×ù" & goto output
-    if "!day!" geq "22" set "constellation=¾ÞÐ·×ù" & goto output
+    if "!day!" leq "21" set "constellation=åŒå­åº§" & goto output
+    if "!day!" geq "22" set "constellation=å·¨èŸ¹åº§" & goto output
 )
 if "!month!"=="07" (
-    if "!day!" leq "22" set "constellation=¾ÞÐ·×ù" & goto output
-    if "!day!" geq "23" set "constellation=Ê¨×Ó×ù" & goto output
+    if "!day!" leq "22" set "constellation=å·¨èŸ¹åº§" & goto output
+    if "!day!" geq "23" set "constellation=ç‹®å­åº§" & goto output
 )
 if "!month!"=="08" (
-    if "!day!" leq "22" set "constellation=Ê¨×Ó×ù" & goto output
-    if "!day!" geq "23" set "constellation=´¦Å®×ù" & goto output
+    if "!day!" leq "22" set "constellation=ç‹®å­åº§" & goto output
+    if "!day!" geq "23" set "constellation=å¤„å¥³åº§" & goto output
 )
 if "!month!"=="09" (
-    if "!day!" leq "22" set "constellation=´¦Å®×ù" & goto output
-    if "!day!" geq "23" set "constellation=Ìì³Ó×ù" & goto output
+    if "!day!" leq "22" set "constellation=å¤„å¥³åº§" & goto output
+    if "!day!" geq "23" set "constellation=å¤©ç§¤åº§" & goto output
 )
 if "!month!"=="10" (
-    if "!day!" leq "23" set "constellation=Ìì³Ó×ù" & goto output
-    if "!day!" geq "24" set "constellation=ÌìÐ«×ù" & goto output
+    if "!day!" leq "23" set "constellation=å¤©ç§¤åº§" & goto output
+    if "!day!" geq "24" set "constellation=å¤©èŽåº§" & goto output
 )
 if "!month!"=="11" (
-    if "!day!" leq "22" set "constellation=ÌìÐ«×ù" & goto output
-    if "!day!" geq "23" set "constellation=ÉäÊÖ×ù" & goto output
+    if "!day!" leq "22" set "constellation=å¤©èŽåº§" & goto output
+    if "!day!" geq "23" set "constellation=å°„æ‰‹åº§" & goto output
 )
 if "!month!"=="12" (
-    if "!day!" leq "21" set "constellation=ÉäÊÖ×ù" & goto output
-    if "!day!" geq "22" set "constellation=Ä¦ôÉ×ù" & goto output
+    if "!day!" leq "21" set "constellation=å°„æ‰‹åº§" & goto output
+    if "!day!" geq "22" set "constellation=æ‘©ç¾¯åº§" & goto output
 )
 
 
 :output
 echo ==============================
-echo ÄúµÄÊôÏàÊÇ£º!zodiacSign!
-echo ÄúµÄÐÇ×ùÊÇ£º!constellation!
+echo æ‚¨çš„å±žç›¸æ˜¯ï¼š!zodiacSign!
+echo æ‚¨çš„æ˜Ÿåº§æ˜¯ï¼š!constellation!
 echo ==============================
-echo °´ÈÎÒâ¼ü¼ÌÐø...
+echo æŒ‰ä»»æ„é”®ç»§ç»­...
 pause > nul
 goto main
 
 
 :error
-echo ÊäÈë¸ñÊ½´íÎó£¬ÇëÖØÐÂÊäÈë¡£
+echo è¾“å…¥æ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚
 pause > nul
 goto main
